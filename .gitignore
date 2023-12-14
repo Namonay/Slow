@@ -1,2 +1,5 @@
 img/**/*.png
 img/**/*.xcf
+.xmake/*
+build/*
+objs

@@ -1,0 +1,26 @@
+[
+{
+  "directory": "/nfs/homes/vvaas/Slow",
+  "arguments": ["/usr/bin/clang", "-c", "-Qunused-arguments", "-m64", "-std=c++17", "-Iincludes", "-D_REENTRANT", "-I", "/nfs/homes/vvaas/.xmake/packages/l/libsdl_image/2.6.2/97cff0187d9143bc9366b117a4e736a6/include", "-I", "/nfs/homes/vvaas/.xmake/packages/l/libsdl_image/2.6.2/97cff0187d9143bc9366b117a4e736a6/include/SDL2", "-I", "/usr/include/SDL2", "-o", "objs/linux_x86_64/Slow/linux/x86_64/release/srcs/Window.cpp.o", "srcs/Window.cpp"],
+  "file": "srcs/Window.cpp"
+},
+{
+  "directory": "/nfs/homes/vvaas/Slow",
+  "arguments": ["/usr/bin/clang", "-c", "-Qunused-arguments", "-m64", "-std=c++17", "-Iincludes", "-D_REENTRANT", "-I", "/nfs/homes/vvaas/.xmake/packages/l/libsdl_image/2.6.2/97cff0187d9143bc9366b117a4e736a6/include", "-I", "/nfs/homes/vvaas/.xmake/packages/l/libsdl_image/2.6.2/97cff0187d9143bc9366b117a4e736a6/include/SDL2", "-I", "/usr/include/SDL2", "-o", "objs/linux_x86_64/Slow/linux/x86_64/release/srcs/Renderer.cpp.o", "srcs/Renderer.cpp"],
+  "file": "srcs/Renderer.cpp"
+},
+{
+  "directory": "/nfs/homes/vvaas/Slow",
+  "arguments": ["/usr/bin/clang", "-c", "-Qunused-arguments", "-m64", "-std=c++17", "-Iincludes", "-D_REENTRANT", "-I", "/nfs/homes/vvaas/.xmake/packages/l/libsdl_image/2.6.2/97cff0187d9143bc9366b117a4e736a6/include", "-I", "/nfs/homes/vvaas/.xmake/packages/l/libsdl_image/2.6.2/97cff0187d9143bc9366b117a4e736a6/include/SDL2", "-I", "/usr/include/SDL2", "-o", "objs/linux_x86_64/Slow/linux/x86_64/release/srcs/GameState.cpp.o", "srcs/GameState.cpp"],
+  "file": "srcs/GameState.cpp"
+},
+{
+  "directory": "/nfs/homes/vvaas/Slow",
+  "arguments": ["/usr/bin/clang", "-c", "-Qunused-arguments", "-m64", "-std=c++17", "-Iincludes", "-D_REENTRANT", "-I", "/nfs/homes/vvaas/.xmake/packages/l/libsdl_image/2.6.2/97cff0187d9143bc9366b117a4e736a6/include", "-I", "/nfs/homes/vvaas/.xmake/packages/l/libsdl_image/2.6.2/97cff0187d9143bc9366b117a4e736a6/include/SDL2", "-I", "/usr/include/SDL2", "-o", "objs/linux_x86_64/Slow/linux/x86_64/release/srcs/image.cpp.o", "srcs/image.cpp"],
+  "file": "srcs/image.cpp"
+},
+{
+  "directory": "/nfs/homes/vvaas/Slow",
+  "arguments": ["/usr/bin/clang", "-c", "-Qunused-arguments", "-m64", "-std=c++17", "-Iincludes", "-D_REENTRANT", "-I", "/nfs/homes/vvaas/.xmake/packages/l/libsdl_image/2.6.2/97cff0187d9143bc9366b117a4e736a6/include", "-I", "/nfs/homes/vvaas/.xmake/packages/l/libsdl_image/2.6.2/97cff0187d9143bc9366b117a4e736a6/include/SDL2", "-I", "/usr/include/SDL2", "-o", "objs/linux_x86_64/Slow/linux/x86_64/release/srcs/main.cpp.o", "srcs/main.cpp"],
+  "file": "srcs/main.cpp"
+}]

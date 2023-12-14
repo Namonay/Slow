@@ -5,13 +5,15 @@
 # include <SDL2/SDL.h>
 # include <string>
 # include <Renderer.hpp>
-
+# include <SDL2/SDL_image.h>
 class ImageCollection
 {
 	public:
-		ImageCollection(void) = default;
+		ImageCollection(void);
+		ImageCollection(Renderer renderer);
 		~ImageCollection(void);
-		SDL_Texture *add_img(const std::string &name, Renderer renderer);
+		SDL_Texture *add_img(const std::string &path, Renderer renderer, const std::string &name);
+		SDL_Texture *add_img(const std::string &path, Renderer renderer);
 		inline SDL_Texture *get_txtr(const std::string &name) noexcept {return txtr_map[name]; };
 		void unload_img(const std::string &name);
 	private:
