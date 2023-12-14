@@ -5,7 +5,8 @@
 #include <map>
 #include <GameState.hpp>
 #include <cstdlib>
-
+#include <vector>
+#include <queue>
 # define STB_IMAGE_IMPLEMENTATION
 # define SDL_RENDERER_PRESENTVSYNC
 
@@ -14,7 +15,7 @@ std::map<int, bool> keys;
 void update_keys(SDL_Event *event)
 {
 	bool key_pressed = 0;
-	if (SDL_PollEvent(event))
+	while (SDL_PollEvent(event))
 	{
 		switch (event->type) 
 		{
@@ -59,33 +60,62 @@ void open_map(Window &window, ImageCollection &Images, Renderer renderer)
 	SDL_RenderCopy(renderer.getRenderer(), Images.get_txtr("beacon1"), nullptr, create_rect_from_img((window.getWidth() - mapw) / 2, (window.getHeight() - maph) / 2, Images.get_txtr("beacon1")));
 }
 
-SDL_Rect *create_rect(int x, int y, int w, int h, SDL_Rect *rect)
+SDL_Rect *create_rect(int x, int y, int w, int h, SDL_Rect &rect)
 {
 	static int xa = 0;
 	static int ya = 0;
 
 	if (keys[SDLK_w])
-		xa++;
+		xa += 5;
 	if (keys[SDLK_s])
-		xa--;
+		xa -= 5;
 	if (keys[SDLK_a])
-		ya++;
+		ya += 5;
 	if (keys[SDLK_d])
-		ya--;
-	rect->x = x - ya;
-	rect->y = y - xa;
-	rect->w = w;
-	rect->h = h;
-	return (rect);
+		ya -= 5;
+	rect.x = x - ya;
+	rect.y = y - xa;
+	rect.w = w;
+	rect.h = h;
+	return (&rect);
+}
+
+void shoot_laser(SDL_Rect &position, std::deque<SDL_Rect> &projectiles)
+{
+	position.h /= 2;
+	position.w /= 2;
+	position.x += position.w / 2 + 15;
+	position.y += position.h / 2;
+	projectiles.push_back(position);
+}
+
+void update_projectiles(std::deque<SDL_Rect> &projectiles, Renderer &renderer, ImageCollection &Images, Window &window)
+{
+	while (projectiles.size() != 0 && projectiles.front().x > window.getWidth())
+	{
+		projectiles.pop_front();
+		std::cout << "destroyed a projectile" << std::endl;
+	}
+	for (SDL_Rect &rect : projectiles)
+	{
+		SDL_RenderCopy(renderer.getRenderer(), Images.get_txtr("laser"), nullptr, &rect);
+		rect.x += 15;
+	}
 }
 
 void process_input(GameState &game, Renderer &renderer, ImageCollection &Images, Window &window)
 {
 	static SDL_Event event;
 	static SDL_Rect rect;
+	static std::deque<SDL_Rect> projectiles;
 
 	update_keys(&event);
-	SDL_RenderCopy(renderer.getRenderer(), Images.get_txtr("icon"), nullptr, create_rect(100, 100, 100, 100, &rect));
+	SDL_RenderCopy(renderer.getRenderer(), Images.get_txtr("icon"), nullptr, create_rect(100, 100, 100, 100, rect));
+	if (keys[SDLK_SPACE])
+	{
+		shoot_laser(rect, projectiles);
+		keys[SDLK_SPACE] = false;
+	}
 	if (keys[SDLK_ESCAPE] && game.get_event("map") == false)
 		game.unset_event("game");
 	if ((keys[SDLK_ESCAPE] || keys[SDLK_m]) && game.get_event("map"))
@@ -101,13 +131,15 @@ void process_input(GameState &game, Renderer &renderer, ImageCollection &Images,
 	}
 	if (game.get_event("map"))
 		open_map(window, Images, renderer);
+	update_projectiles(projectiles, renderer, Images, window);
+	SDL_Delay(1000 / 60);
 }
 
 int main()
 {
 	Window window;
 	Renderer renderer;
-	ImageCollection Images(renderer);
+	ImageCollection Images;
 	GameState gamestate;
 
 	srand(time(NULL));
@@ -116,14 +148,7 @@ int main()
 	renderer.init(window.getWindow());
 	SDL_RenderClear(renderer.getRenderer());
 	SDL_RenderPresent(renderer.getRenderer());
-	if (Images.add_img("img/stars_special/bg_center.png", renderer, "background"))
-		std::cout << "OK" << std::endl;
-	if (Images.add_img("img/ui_icons/icon_fuel.png", renderer, "icon"))
-		std::cout << "OK" << std::endl;
-	if (Images.add_img("img/map/sector_box.png", renderer, "map"))
-		std::cout << "OK" << std::endl;
-	if (Images.add_img("img/map/map_fuel_WAIT_select2.png", renderer, "beacon1"))
-		std::cout << "OK" << std::endl;
+	Images.LoadAssets(renderer);
 	while (gamestate.get_event("game"))
 	{
 		SDL_RenderClear(renderer.getRenderer());

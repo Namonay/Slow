@@ -14,6 +14,7 @@ class ImageCollection
 		~ImageCollection(void);
 		SDL_Texture *add_img(const std::string &path, Renderer renderer, const std::string &name);
 		SDL_Texture *add_img(const std::string &path, Renderer renderer);
+		void LoadAssets(Renderer renderer);
 		inline SDL_Texture *get_txtr(const std::string &name) noexcept {return txtr_map[name]; };
 		void unload_img(const std::string &name);
 	private:
