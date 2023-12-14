@@ -92,10 +92,7 @@ void shoot_laser(SDL_Rect &position, std::deque<SDL_Rect> &projectiles)
 void update_projectiles(std::deque<SDL_Rect> &projectiles, Renderer &renderer, ImageCollection &Images, Window &window)
 {
 	while (projectiles.size() != 0 && projectiles.front().x > window.getWidth())
-	{
 		projectiles.pop_front();
-		std::cout << "destroyed a projectile" << std::endl;
-	}
 	for (SDL_Rect &rect : projectiles)
 	{
 		SDL_RenderCopy(renderer.getRenderer(), Images.get_txtr("laser"), nullptr, &rect);
